@@ -2,6 +2,7 @@ package com.example.pmpdomasno2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.os.Bundle;
 import android.view.View;
@@ -42,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         adapter = new ListAdapter(MainActivity.this, listaProdukti);
         lvProdukti.setAdapter(adapter);
+
 
         lvProdukti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,26 +73,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
    public void updateListProdukti() throws FileNotFoundException {
-        Scanner scan=new Scanner(openFileInput("novoDodadeniProdukti"));
-        while(scan.hasNext())
-        {
-            String produkt=scan.nextLine();
-            boolean daliPostoj=false;
-            for(int i=0; i<listaProdukti.size();i++)
-            {
-                if(listaProdukti.get(i).getIme().equalsIgnoreCase(produkt))
-                {
-                    daliPostoj=true;
-                    break;
-                }
-            }
-            if(daliPostoj==false)
-            {
-                listaProdukti.add(new Produkt(produkt,0,R.drawable.ic_launcher_foreground));
-            }
-            daliPostoj=false;
-        }
-        }
+       File file = getFileStreamPath("novoDodadeniProdukti");
+       if (file.exists()) {
+           Scanner scan = new Scanner(openFileInput("novoDodadeniProdukti"));
+           while (scan.hasNext()) {
+               String produkt = scan.nextLine();
+               boolean daliPostoj = false;
+               for (int i = 0; i < listaProdukti.size(); i++) {
+                   if (listaProdukti.get(i).getIme().equalsIgnoreCase(produkt)) {
+                       daliPostoj = true;
+                       break;
+                   }
+               }
+               if (daliPostoj == false) {
+                   listaProdukti.add(new Produkt(produkt, 0, R.drawable.ic_launcher_foreground));
+               }
+               daliPostoj = false;
+           }
+       }
+   }
 
 
    /* public void vpisiProduktiDatoteka(View view) throws FileNotFoundException {
