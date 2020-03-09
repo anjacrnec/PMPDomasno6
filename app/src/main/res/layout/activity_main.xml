@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txtVnesiIme"
+        android:background="@color/slikaPozadinaAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txtVnesiImeStr"
+        android:paddingLeft="10dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_below="@id/txtVnesiIme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/slikaPozadinaAccent">
+
+        <EditText
+            android:id="@+id/tbVnesiIme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="10"
+            android:inputType="textPersonName"
+            android:text="@string/tbVnesiImeStr"
+            android:textSize="15sp" />
+
+        <ImageButton
+            android:id="@+id/kreriajNovProdukt"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@color/slikaPozadinaAccent"
+            android:clickable="true"
+            android:scaleType="fitCenter"
+            android:onClick="kreirajNovProdukt"
+            app:srcCompat="@drawable/kreiraj_nov" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvProdukti"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/ll"
+
+        />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lvProdukti"
+
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button"
+
+        android:text="Site" />
+
+
+</RelativeLayout>
+

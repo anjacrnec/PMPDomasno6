@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PMPDomasno2</string>
+    <string name="txtVnesiImeStr">Kreiraj nov proizvod</string>
+    <string name="tbVnesiImeStr">Vnesi ime na nov proizvod</string>
+</resources>
