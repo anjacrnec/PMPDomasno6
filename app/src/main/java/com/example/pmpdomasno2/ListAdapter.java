@@ -68,7 +68,7 @@ public class ListAdapter extends BaseAdapter {
 
 
         viewHolder.txtName.setText(produkti.get(position).getIme().toString());
-        viewHolder.txtVersion.setText("Kolicina:"+produkti.get(position).getCounter());
+        viewHolder.txtVersion.setText(Integer.toString(produkti.get(position).getCounter()));
         viewHolder.icon.setImageResource(produkti.get(position).getSlika());
 
         return convertView;

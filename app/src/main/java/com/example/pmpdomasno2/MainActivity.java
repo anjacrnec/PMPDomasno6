@@ -78,18 +78,16 @@ public class MainActivity extends AppCompatActivity {
            Scanner scan = new Scanner(openFileInput("novoDodadeniProdukti"));
            while (scan.hasNext()) {
                String produkt = scan.nextLine();
-               boolean daliPostoj = false;
-               for (int i = 0; i < listaProdukti.size(); i++) {
-                   if (listaProdukti.get(i).getIme().equalsIgnoreCase(produkt)) {
-                       daliPostoj = true;
-                       break;
-                   }
-               }
-               if (daliPostoj == false) {
+
                    listaProdukti.add(new Produkt(produkt, 0, R.drawable.ic_launcher_foreground));
                }
-               daliPostoj = false;
+
            }
+       }
+
+       public void dodajProdukt()
+       {
+
        }
    }
 
@@ -141,4 +139,4 @@ public class MainActivity extends AppCompatActivity {
 
         scan.close();
     }*/
-}
+
