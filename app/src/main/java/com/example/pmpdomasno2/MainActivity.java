@@ -107,10 +107,11 @@ public class MainActivity extends AppCompatActivity {
                    poraka = poraka + "\n" + listaProdukti.get(i).getIme() + " kol: " + countKliknato;
                    listaProdukti.get(i).setCounter(0);
                }
+               resetListViewProdukti();
                adapter.notifyDataSetChanged();
            }
            ps.close();
-           resetListViewProdukti();
+
            Toast.makeText(MainActivity.this,poraka,Toast.LENGTH_SHORT).show();
        }
 
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
        {
            for(int i=lvProdukti.getFirstVisiblePosition();i<=lvProdukti.getLastVisiblePosition();i++)
            {
-               View v=lvProdukti.getChildAt(i);
+               View v=lvProdukti.getChildAt(i-lvProdukti.getFirstVisiblePosition());
                TextView t=(TextView)v.findViewById(R.id.txtCounter);
                t.setTextColor(getResources().getColor(R.color.white));
            }
@@ -156,9 +157,9 @@ public class MainActivity extends AppCompatActivity {
            {
                listaProdukti.get(i).setCounter(0);
            }
-
-           adapter.notifyDataSetChanged();
            resetListViewProdukti();
+           adapter.notifyDataSetChanged();
+
        }
 
    }
