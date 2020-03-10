@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         ps.close();
         Produkt p=new Produkt(ime,0,R.drawable.placeholder);
         listaProdukti.add(p);
+        et.setText("");
         adapter.notifyDataSetChanged();
 
     }

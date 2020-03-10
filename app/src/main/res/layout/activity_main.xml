@@ -6,105 +6,109 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/txtVnesiIme"
-        android:background="@color/lightGrey"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txtVnesiImeStr"
-        android:textColor="@color/Crna"
-        android:paddingTop="10dp"
-        android:textSize="15dp"
-        android:textAllCaps="true"
-        android:paddingLeft="10dp"
-        />
-
     <LinearLayout
-        android:id="@+id/ll"
-        android:layout_below="@id/txtVnesiIme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/lightGrey">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/tbVnesiIme"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/txtVnesiIme"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="10"
-            android:inputType="textPersonName"
-            android:text="@string/tbVnesiImeStr"
-            android:textSize="15sp" />
-
-        <ImageButton
-            android:id="@+id/kreriajNovProdukt"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:background="@color/lightGrey"
-            android:clickable="true"
-            android:scaleType="fitCenter"
-            android:onClick="kreirajNovProdukt"
-            app:srcCompat="@drawable/kreiraj_nov" />
-    </LinearLayout>
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/txtVnesiImeStr"
+            android:textAllCaps="true"
+            android:textColor="@color/Crna"
+            android:textSize="15dp" />
 
-    <ListView
-        android:id="@+id/lvProdukti"
-        android:layout_width="wrap_content"
-        android:layout_height="600dp"
-        android:layout_below="@id/ll"
-        android:layout_marginTop="10dp"
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightGrey"
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/tbVnesiIme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="10"
+                android:inputType="textPersonName"
+                android:text="@string/tbVnesiImeStr"
+                android:textSize="15sp" />
 
-        />
+            <ImageButton
+                android:id="@+id/kreriajNovProdukt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/button_pressed"
+                android:clickable="true"
+                android:onClick="kreirajNovProdukt"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/kreiraj_nov" />
+        </LinearLayout>
 
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/slikaPozadinaAccent"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/imageButton2"
+        <ListView
+            android:id="@+id/lvProdukti"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:background="@color/lightGrey"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="undoProdukti"
-            app:srcCompat="@drawable/undo" />
+            android:layout_marginTop="10dp"
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="wrap_content"
+
+            android:layout_weight="10" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
+            android:layout_weight="45"
+            android:background="@color/slikaPozadinaAccent"
+            android:orientation="horizontal">
 
-            android:background="@drawable/button_pressed"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="dodajProdukt"
-            app:srcCompat="@drawable/checkmark" />
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_pressed"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="undoProdukti"
+                app:srcCompat="@drawable/undo" />
 
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:background="@color/lightGrey"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="prikaziIstorijaProdukti"
-            app:srcCompat="@drawable/istorija" />
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/button_pressed"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="dodajProdukt"
+                app:srcCompat="@drawable/checkmark" />
+
+            <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_pressed"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="prikaziIstorijaProdukti"
+                app:srcCompat="@drawable/istorija" />
+        </LinearLayout>
+
     </LinearLayout>
 
 
