@@ -85,9 +85,20 @@ public class MainActivity extends AppCompatActivity {
            }
        }
 
-       public void dodajProdukt()
-       {
+       public void dodajProdukt(View view) throws FileNotFoundException {
+           PrintStream ps=new PrintStream(openFileOutput("vkupnoProdukti",MODE_APPEND));
+           for(int i=0;i<listaProdukti.size();i++)
+           {
+               int countKliknato=listaProdukti.get(i).getCounter();
+               for(int j=0;j<countKliknato;j++)
+               {
+                   ps.println(listaProdukti.get(i).getIme());
 
+               }
+               listaProdukti.get(i).setCounter(0);
+               adapter.notifyDataSetChanged();
+           }
+           ps.close();
        }
    }
 

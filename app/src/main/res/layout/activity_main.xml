@@ -81,6 +81,9 @@
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:background="@color/magenta"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="dodajProdukt"
             app:srcCompat="@drawable/checkmark" />
 
         <ImageButton
