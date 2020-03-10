@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,9 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 int i= listaProdukti.get(position).getCounter();
                 i++;
                 listaProdukti.get(position).setCounter(i);
+                TextView tv=(TextView) view.findViewById(R.id.txtCounter);
+                tv.setTextColor(getResources().getColor(R.color.slikaPozadinaAccent));
                 adapter.notifyDataSetChanged();
+
+
             }
         });
+
+
     }
 
     public void kreirajNovProdukt(View view) throws FileNotFoundException {
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
        public void dodajProdukt(View view) throws FileNotFoundException {
            PrintStream ps=new PrintStream(openFileOutput("vkupnoProdukti",MODE_APPEND));
+           String poraka="Uspeshno dodadeni proizvodi: ";
            for(int i=0;i<listaProdukti.size();i++)
            {
                int countKliknato=listaProdukti.get(i).getCounter();
@@ -95,59 +103,59 @@ public class MainActivity extends AppCompatActivity {
                    ps.println(listaProdukti.get(i).getIme());
 
                }
-               listaProdukti.get(i).setCounter(0);
+               if(countKliknato!=0) {
+                   poraka = poraka + "\n" + listaProdukti.get(i).getIme() + " kol: " + countKliknato;
+                   listaProdukti.get(i).setCounter(0);
+               }
                adapter.notifyDataSetChanged();
            }
            ps.close();
+
+           Toast.makeText(MainActivity.this,poraka,Toast.LENGTH_SHORT).show();
+       }
+
+       public void prikaziIstorijaProdukti(View view) throws FileNotFoundException {
+           Scanner scan=new Scanner(openFileInput("vkupnoProdukti"));
+           ArrayList<String> produktiOdDatoteka=new ArrayList<String>();
+           String poraka="Istorija na prodadeni produkti: ";
+           while(scan.hasNext())
+           {
+               String produkt=scan.nextLine();
+               produktiOdDatoteka.add(produkt);
+           }
+           for(int i=0;i<listaProdukti.size();i++)
+           {
+               int k=0;
+               for(int j=0;j<produktiOdDatoteka.size();j++)
+               {
+                   if(listaProdukti.get(i).getIme().equalsIgnoreCase(produktiOdDatoteka.get(j)))
+                       k++;
+               }
+               poraka=poraka+"\n"+listaProdukti.get(i).getIme()+" kol: "+k;
+
+           }
+           Toast.makeText(MainActivity.this,poraka,Toast.LENGTH_LONG).show();
+       }
+
+       public void undoProdukti(View view)
+       {
+
+           TextView tv=(TextView)findViewById(R.id.txtCounter);
+           //tv.setTextColor(getResources().getColor(R.color.white));
+           for(int i=0;i<listaProdukti.size();i++)
+           {
+               listaProdukti.get(i).setCounter(0);
+           }
+
+           adapter.notifyDataSetChanged();
+
+           for(int i=lvProdukti.getFirstVisiblePosition();i<lvProdukti.getLastVisiblePosition();i++)
+           {
+               View v=lvProdukti.getChildAt(i);
+               TextView t=(TextView)v.findViewById(R.id.txtCounter);
+               t.setTextColor(getResources().getColor(R.color.white));
+           }
        }
    }
 
-
-   /* public void vpisiProduktiDatoteka(View view) throws FileNotFoundException {
-        PrintStream ps=new PrintStream(openFileOutput("produkti",MODE_APPEND));
-        for(int i=0;i<listaProduktiCount.size();i++)
-        {
-            int produktCount=Integer.parseInt(listaProduktiCount.get(i));
-            if(produktCount>0)
-                for(int j=0;j<produktCount;j++)
-                    ps.println(listaProduktiIminja.get(i));
-        }
-        ps.close();
-    }
-
-    public void prikaziSiteVneseniProdukti(View view) throws FileNotFoundException {
-        Scanner scan=new Scanner(openFileInput("produkti"));
-        List<Integer> vkupno=new ArrayList<Integer>();
-
-        int k=0;
-        List <String> site=new ArrayList<String>();
-        List <Integer> vk=new ArrayList<Integer>();
-        while ((scan.hasNext()))
-        {
-            String line=scan.nextLine();
-            {
-
-                site.add(line);
-            }
-        }
-
-        for(int i=0;i<listaProduktiCount.size();i++)
-        {
-            for(int j=0;j<site.size();j++)
-            {
-                if (listaProduktiIminja.get(i).equalsIgnoreCase(site.get(j)))
-                {
-                    k++;
-                }
-
-            }
-            vk.add(k);
-            k=0;
-        }
-
-        for(int i=0;i<listaProduktiCount.size();i++)
-            Toast.makeText(MainActivity.this, listaProduktiIminja.get(i)+" "+vk.get(i), Toast.LENGTH_SHORT).show();
-
-        scan.close();
-    }*/
 

@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/txtVnesiIme"
-        android:background="@color/magenta"
+        android:background="@color/lightGrey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txtVnesiImeStr"
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/magenta">
+        android:background="@color/lightGrey">
 
         <EditText
             android:id="@+id/tbVnesiIme"
@@ -40,7 +40,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:background="@color/magenta"
+            android:background="@color/lightGrey"
             android:clickable="true"
             android:scaleType="fitCenter"
             android:onClick="kreirajNovProdukt"
@@ -71,7 +71,10 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1"
-            android:background="@color/magenta"
+            android:background="@color/lightGrey"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="undoProdukti"
             app:srcCompat="@drawable/undo" />
 
         <ImageButton
@@ -80,7 +83,7 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1"
-            android:background="@color/magenta"
+            android:background="@color/lightGrey"
             android:clickable="true"
             android:focusable="true"
             android:onClick="dodajProdukt"
@@ -91,8 +94,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
-            android:background="@color/magenta"
+            android:background="@color/lightGrey"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="prikaziIstorijaProdukti"
             app:srcCompat="@drawable/istorija" />
     </LinearLayout>
 

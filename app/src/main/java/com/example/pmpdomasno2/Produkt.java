@@ -16,6 +16,12 @@ public class Produkt {
         this.slika = slika;
     }
 
+    public Produkt(String ime, int counter ) {
+        this.ime = ime;
+        this.counter = counter;
+
+    }
+
     public String getIme() {
         return ime;
     }

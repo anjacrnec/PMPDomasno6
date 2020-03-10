@@ -12,7 +12,7 @@
         android:id="@+id/ivIkonaPordukt"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:background="@color/slikaPozadinaAccent"
@@ -28,6 +28,9 @@
         android:layout_marginTop="18sp"
         android:layout_toEndOf="@+id/ivIkonaPordukt"
         android:layout_toRightOf="@id/ivIkonaPordukt"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
         android:textColor="#000000" />
 
     <FrameLayout
@@ -35,12 +38,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
+        android:layout_marginRight="40dp"
         >
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/krugCounter"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/krug" />
@@ -52,8 +56,9 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:maxLength="3"
             android:text="0"
-            android:textColor="#CDDC39"
-            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
             android:visibility="visible" />
     </FrameLayout>
 
