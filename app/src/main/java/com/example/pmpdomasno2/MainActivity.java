@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ListAdapter(MainActivity.this, listaProdukti);
         lvProdukti.setAdapter(adapter);
 
-
         lvProdukti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 listaProdukti.get(position).setCounter(i);
                 TextView tv=(TextView) view.findViewById(R.id.txtCounter);
                 tv.setTextColor(getResources().getColor(R.color.slikaPozadinaAccent));
+                view.setBackgroundColor(getResources().getColor(R.color.lime));
                 adapter.notifyDataSetChanged();
 
 
@@ -113,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
            }
            ps.close();
 
-           Toast.makeText(MainActivity.this,poraka,Toast.LENGTH_SHORT).show();
+           Toast.makeText(MainActivity.this,poraka,Toast.LENGTH_LONG).show();
+
        }
 
        public void prikaziIstorijaProdukti(View view) throws FileNotFoundException {
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
            for(int i=lvProdukti.getFirstVisiblePosition();i<=lvProdukti.getLastVisiblePosition();i++)
            {
                View v=lvProdukti.getChildAt(i-lvProdukti.getFirstVisiblePosition());
+               v.setBackgroundColor(getResources().getColor(R.color.white));
                TextView t=(TextView)v.findViewById(R.id.txtCounter);
                t.setTextColor(getResources().getColor(R.color.white));
            }

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ListAdapter extends BaseAdapter {
 
@@ -73,6 +74,7 @@ public class ListAdapter extends BaseAdapter {
 
         return convertView;
     }
+
 
     private static class ViewHolder {
 
