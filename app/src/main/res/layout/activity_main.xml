@@ -12,6 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txtVnesiImeStr"
+        android:textColor="@color/Crna"
+        android:paddingTop="10dp"
+        android:textSize="15dp"
+        android:textAllCaps="true"
         android:paddingLeft="10dp"
         />
 
@@ -28,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="10"
             android:inputType="textPersonName"
             android:text="@string/tbVnesiImeStr"
@@ -49,8 +53,8 @@
 
     <ListView
         android:id="@+id/lvProdukti"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="600dp"
         android:layout_below="@id/ll"
         android:layout_marginTop="10dp"
 
@@ -60,7 +64,7 @@
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/slikaPozadinaAccent"
         android:orientation="horizontal">
@@ -83,7 +87,8 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1"
-            android:background="@color/lightGrey"
+
+            android:background="@drawable/button_pressed"
             android:clickable="true"
             android:focusable="true"
             android:onClick="dodajProdukt"
@@ -94,8 +99,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
-            android:background="@color/lightGrey"
             android:layout_weight="1"
+            android:background="@color/lightGrey"
             android:clickable="true"
             android:focusable="true"
             android:onClick="prikaziIstorijaProdukti"

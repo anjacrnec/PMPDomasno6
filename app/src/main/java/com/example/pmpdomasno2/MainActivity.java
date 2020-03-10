@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         String ime=et.getText().toString();
         ps.println(ime);
         ps.close();
-        Produkt p=new Produkt(ime,0,R.drawable.ic_launcher_foreground);
+        Produkt p=new Produkt(ime,0,R.drawable.placeholder);
         listaProdukti.add(p);
         adapter.notifyDataSetChanged();
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
            while (scan.hasNext()) {
                String produkt = scan.nextLine();
 
-                   listaProdukti.add(new Produkt(produkt, 0, R.drawable.ic_launcher_foreground));
+                   listaProdukti.add(new Produkt(produkt, 0, R.drawable.placeholder));
                }
 
            }
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                adapter.notifyDataSetChanged();
            }
            ps.close();
-
+           resetListViewProdukti();
            Toast.makeText(MainActivity.this,poraka,Toast.LENGTH_SHORT).show();
        }
 
@@ -137,6 +137,16 @@ public class MainActivity extends AppCompatActivity {
            Toast.makeText(MainActivity.this,poraka,Toast.LENGTH_LONG).show();
        }
 
+       public void resetListViewProdukti()
+       {
+           for(int i=lvProdukti.getFirstVisiblePosition();i<=lvProdukti.getLastVisiblePosition();i++)
+           {
+               View v=lvProdukti.getChildAt(i);
+               TextView t=(TextView)v.findViewById(R.id.txtCounter);
+               t.setTextColor(getResources().getColor(R.color.white));
+           }
+       }
+
        public void undoProdukti(View view)
        {
 
@@ -148,14 +158,9 @@ public class MainActivity extends AppCompatActivity {
            }
 
            adapter.notifyDataSetChanged();
-
-           for(int i=lvProdukti.getFirstVisiblePosition();i<lvProdukti.getLastVisiblePosition();i++)
-           {
-               View v=lvProdukti.getChildAt(i);
-               TextView t=(TextView)v.findViewById(R.id.txtCounter);
-               t.setTextColor(getResources().getColor(R.color.white));
-           }
+           resetListViewProdukti();
        }
+
    }
 
 
