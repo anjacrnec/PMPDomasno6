@@ -11,57 +11,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtVnesiIme"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/lightGrey"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:text="@string/txtVnesiImeStr"
-            android:textAllCaps="true"
-            android:textColor="@color/Crna"
-            android:textSize="15dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="3.5">
 
-        <LinearLayout
-            android:id="@+id/ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/lightGrey"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/tbVnesiIme"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="10"
-                android:inputType="textPersonName"
-                android:text="@string/tbVnesiImeStr"
-                android:textSize="15sp" />
-
-            <ImageButton
-                android:id="@+id/kreriajNovProdukt"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@drawable/button_pressed"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:clickable="true"
-                android:onClick="kreirajNovProdukt"
-                android:scaleType="fitCenter"
+                android:onClick="otvoriKreirajNovProduktActivity"
                 app:srcCompat="@drawable/kreiraj_nov" />
-        </LinearLayout>
 
-        <ListView
-            android:id="@+id/lvProdukti"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            <ListView
+                android:id="@+id/lvProdukti"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
 
 
-            android:layout_weight="10" />
+                >
+
+            </ListView>
+        </FrameLayout>
 
         <LinearLayout
 

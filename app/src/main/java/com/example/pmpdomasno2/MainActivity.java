@@ -3,6 +3,7 @@ package com.example.pmpdomasno2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.os.Bundle;
 import android.text.TextWatcher;
@@ -27,6 +28,7 @@ import java.util.Scanner;
 public class MainActivity extends AppCompatActivity {
     ListView lvProdukti;
     ListAdapter adapter;
+    String p="";
     ArrayList <Produkt> listaProdukti;
 
 
@@ -62,13 +64,32 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
 
 
+
             }
         });
 
 
     }
 
-    public void kreirajNovProdukt(View view) throws FileNotFoundException {
+    protected void onActivityResult(int requestCode,int resultCode, Intent intent) {
+
+        super.onActivityResult(requestCode, resultCode, intent);
+        if(requestCode==0)
+        {
+            //ArrayList <Produkt> l=intent.getParcelableArrayListExtra("proba");
+            //listaProdukti.add(l.get(l.size()-1));
+
+            ArrayList<String> novoDodadeni=intent.getStringArrayListExtra("novoDodadeni");
+
+            for(int i=0;i<novoDodadeni.size();i++)
+            {
+                listaProdukti.add(new Produkt(novoDodadeni.get(i),0, R.drawable.placeholder));
+            }
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+  /* public void kreirajNovProdukt(View view) throws FileNotFoundException {
         PrintStream ps=new PrintStream(openFileOutput("novoDodadeniProdukti",MODE_APPEND));
         EditText et=(EditText) findViewById(R.id.tbVnesiIme);
         String ime=et.getText().toString();
@@ -79,7 +100,15 @@ public class MainActivity extends AppCompatActivity {
         et.setText("");
         adapter.notifyDataSetChanged();
 
-    }
+    }*/
+
+  public void otvoriKreirajNovProduktActivity(View view)
+  {
+      Intent intent =new Intent(this,kreiraj_nov_proizvod_activity.class);
+
+      intent.putParcelableArrayListExtra("listaProduktiIntent",listaProdukti);
+      startActivityForResult(intent,0);
+  }
 
    public void updateListProdukti() throws FileNotFoundException {
        File file = getFileStreamPath("novoDodadeniProdukti");
@@ -135,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                    if(listaProdukti.get(i).getIme().equalsIgnoreCase(produktiOdDatoteka.get(j)))
                        k++;
                }
-               poraka=poraka+"\n"+listaProdukti.get(i).getIme()+" kol: "+k;
+               poraka=poraka+"\n"+listaProdukti.get(i).getIme()+" kol: "+k+" "+p;
 
            }
            Toast.makeText(MainActivity.this,poraka,Toast.LENGTH_LONG).show();
