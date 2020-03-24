@@ -1,6 +1,9 @@
 package com.example.pmpdomasno2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,19 +18,12 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class kreiraj_nov_proizvod_activity extends AppCompatActivity {
-
-    ArrayList<Produkt> listaProdukti;
-    ArrayList<String> novoDodadeni;
-    ArrayList<String> listaProduktiIminja;
-    Boolean daliValiden;
-    String porakaValidnost;
-
-    ListView lvProduktiKratko;
-    Boolean proveriLvProduktiKratko;
-    ArrayAdapter<String> adapterKratko;
+public class KreirajNovProizvodActivity extends AppCompatActivity {
+    static ArrayList<Produkt> listaProdukti;
+   static ArrayList<String> listaProduktiIminja;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +32,15 @@ public class kreiraj_nov_proizvod_activity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         setContentView(R.layout.activity_kreiraj_nov_proizvod_activity);
         Intent intent=getIntent();
+        listaProduktiIminja=new ArrayList<String>();
+        listaProdukti= intent.getParcelableArrayListExtra("listaProduktiIntent");
+        for(int i=0;i<listaProdukti.size();i++)
+        {
+            listaProduktiIminja.add(listaProdukti.get(i).getIme());
+        }
+
+        addKreirajNovProizvodFragment();
+        /*Intent intent=getIntent();
         listaProdukti= intent.getParcelableArrayListExtra("listaProduktiIntent");
         novoDodadeni=new ArrayList<String>();
         listaProduktiIminja=new ArrayList<String>();
@@ -47,11 +52,32 @@ public class kreiraj_nov_proizvod_activity extends AppCompatActivity {
         adapterKratko = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listaProduktiIminja);
         lvProduktiKratko.setAdapter(adapterKratko);
         lvProduktiKratko.setVisibility(View.INVISIBLE);
-        proveriLvProduktiKratko=false;
+        proveriLvProduktiKratko=false;*/
 
     }
 
-    public void kreirajNovProdukt(View view) throws FileNotFoundException {
+    public void addKreirajNovProizvodFragment()
+    {
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+         Fragment vtorfr=new KreirajNovProduktFragment();
+        ft.replace(R.id.kreirajNovProduktConatiner,vtorfr);
+        ft.commit();
+    }
+
+
+
+    public static ArrayList<String> getListaIminja()
+    {
+        return listaProduktiIminja;
+    }
+
+    public static ArrayList<Produkt> getListaProdukt()
+    {
+        return listaProdukti;
+    }
+
+   /* public void kreirajNovProdukt(View view) throws FileNotFoundException {
         daliValiden=true;
         porakaValidnost="";
         proveriValidnostNanNovProdukt();
@@ -131,6 +157,8 @@ public class kreiraj_nov_proizvod_activity extends AppCompatActivity {
 
     }
 
+
+*/
 
 
 

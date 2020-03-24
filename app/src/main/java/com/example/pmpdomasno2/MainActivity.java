@@ -1,77 +1,54 @@
 package com.example.pmpdomasno2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteCantOpenDatabaseException;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
+
     ListView lvProdukti;
     ListAdapter adapter;
     String p="";
-    ArrayList <Produkt> listaProdukti;
-
+    public static ArrayList<Produkt> listaProdukti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FragmentManager fm;
+        FragmentTransaction ft;
 
-        lvProdukti = (ListView) findViewById(R.id.lvProdukti);
-
-        Produkt.setProdukti();
-        listaProdukti=Produkt.getProdukti();
-        try {
-            updateListProdukti();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        adapter = new ListAdapter(MainActivity.this, listaProdukti);
-        lvProdukti.setAdapter(adapter);
-
-        lvProdukti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                int i= listaProdukti.get(position).getCounter();
-                i++;
-                listaProdukti.get(position).setCounter(i);
-                TextView tv=(TextView) view.findViewById(R.id.txtCounter);
-                tv.setTextColor(getResources().getColor(R.color.slikaPozadinaAccent));
-                view.setBackgroundColor(getResources().getColor(R.color.lime));
-                adapter.notifyDataSetChanged();
+            addOsnovenFragment();
 
 
 
-            }
-        });
+    }
 
 
 
-
+    public void addKreirajNovProizvodFragment()
+    {
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+        KreirajNovProduktFragment vtorfr=new KreirajNovProduktFragment();
+        ft.replace(R.id.kreirajNovProduktConatiner,vtorfr,"TAG1");
+        ft.commit();
     }
 
     protected void onActivityResult(int requestCode,int resultCode, Intent intent) {
@@ -79,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode==0)
         {
-            //ArrayList <Produkt> l=intent.getParcelableArrayListExtra("proba");
-            //listaProdukti.add(l.get(l.size()-1));
-
             ArrayList<String> novoDodadeni=intent.getStringArrayListExtra("novoDodadeni");
 
             for(int i=0;i<novoDodadeni.size();i++)
@@ -90,6 +64,15 @@ public class MainActivity extends AppCompatActivity {
             }
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void addOsnovenFragment()
+    {
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+        OsnovenFragment prvfr=new OsnovenFragment();
+        ft.replace(R.id.osnovenFragmentContainer,prvfr);
+        ft.commit();
     }
 
   /* public void kreirajNovProdukt(View view) throws FileNotFoundException {
@@ -105,9 +88,12 @@ public class MainActivity extends AppCompatActivity {
 
     }*/
 
-  public void otvoriKreirajNovProduktActivity(View view)
+    /*
+
+
+    public void otvoriKreirajNovProduktActivity(View view)
   {
-      Intent intent =new Intent(this,kreiraj_nov_proizvod_activity.class);
+      Intent intent =new Intent(this, KreirajNovProizvodActivity.class);
 
       intent.putParcelableArrayListExtra("listaProduktiIntent",listaProdukti);
       startActivityForResult(intent,0);
@@ -196,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
            resetListViewProdukti();
            adapter.notifyDataSetChanged();
 
-       }
+       }*/
 
    }
 
