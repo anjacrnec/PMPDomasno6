@@ -34,7 +34,7 @@ public class OsnovenFragment extends Fragment {
 
     ListView lvProdukti;
     ArrayList<Produkt> zacuvani;
-    ArrayList<Produkt> momentalnoSelektirani;
+    static ArrayList<Produkt> momentalnoSelektirani;
    public static ListAdapter adapter;
     String p="";
     public static ArrayList<Produkt> listaProdukti;
@@ -99,9 +99,9 @@ public class OsnovenFragment extends Fragment {
                 int i= listaProdukti.get(position).getCounter();
                 i++;
                 listaProdukti.get(position).setCounter(i);
-                TextView tv=(TextView) view.findViewById(R.id.txtCounter);
-                tv.setTextColor(getResources().getColor(R.color.slikaPozadinaAccent));
-                view.setBackgroundColor(getResources().getColor(R.color.lime));
+               // TextView tv=(TextView) view.findViewById(R.id.txtCounter);
+               // tv.setTextColor(getResources().getColor(R.color.slikaPozadinaAccent));
+                //view.setBackgroundColor(getResources().getColor(R.color.lime));
                 adapter.notifyDataSetChanged();
                 Boolean ima=false;
 
@@ -120,6 +120,7 @@ public class OsnovenFragment extends Fragment {
             {
                 try {
                     dodajProdukt();
+                  undoProdukti();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -291,9 +292,9 @@ public class OsnovenFragment extends Fragment {
         for(int i=lvProdukti.getFirstVisiblePosition();i<=lvProdukti.getLastVisiblePosition();i++)
         {
             View v=lvProdukti.getChildAt(i-lvProdukti.getFirstVisiblePosition());
-            v.setBackgroundColor(getResources().getColor(R.color.white));
-            TextView t=(TextView)v.findViewById(R.id.txtCounter);
-            t.setTextColor(getResources().getColor(R.color.white));
+            //v.setBackgroundColor(getResources().getColor(R.color.white));
+           // TextView t=(TextView)v.findViewById(R.id.txtCounter);
+           // t.setTextColor(getResources().getColor(R.color.white));
         }
     }
 

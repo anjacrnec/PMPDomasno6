@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.system.Os;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,7 @@ public class KreirajNovProduktFragment extends Fragment {
                     if(getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE)
                     {
                         OsnovenFragment.adapter.notifyDataSetChanged();
+                        OsnovenFragment.momentalnoSelektirani.add(new Produkt(listaProdukti.get(listaProdukti.size()-1).getIme(),listaProdukti.get(listaProdukti.size()-1).getCounter()));
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

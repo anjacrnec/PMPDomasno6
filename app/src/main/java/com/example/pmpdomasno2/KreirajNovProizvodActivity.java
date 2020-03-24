@@ -65,7 +65,7 @@ public class KreirajNovProizvodActivity extends AppCompatActivity {
         return listaProdukti;
     }
 
-   
+
 
 
 
