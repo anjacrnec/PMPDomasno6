@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pozadina_repeat"
+    android:orientation="vertical"
+
+
+    tools:context=".kreiraj_nov_proizvod_activity">
+
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#CDDC39"
+            android:padding="10dp"
+            android:text="NOV PROIZVOD:" />
+
+        <EditText
+            android:id="@+id/tbNovProdukt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:text="ime"
+            android:textSize="14dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#CDDC39"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/kreirajNovProdukt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="kreirajNovProdukt"
+                android:text="Kreiraj" />
+
+            <Button
+                android:id="@+id/btnPrikaziLista"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="prikaziLista"
+                android:text="LISTA PRODUKTI" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvProduktiItems"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/lightGrey"
+            android:clickable="false" />
+
+    </LinearLayout>
+
+</RelativeLayout>
