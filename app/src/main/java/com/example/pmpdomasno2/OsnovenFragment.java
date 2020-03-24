@@ -2,6 +2,7 @@ package com.example.pmpdomasno2;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -32,12 +33,18 @@ import java.util.Scanner;
 public class OsnovenFragment extends Fragment {
 
     ListView lvProdukti;
+    ArrayList<Produkt> zacuvani;
+    ArrayList<Produkt> momentalnoSelektirani;
    public static ListAdapter adapter;
     String p="";
     public static ArrayList<Produkt> listaProdukti;
 
     public OsnovenFragment() {
         // Required empty public constructor
+    }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
 
@@ -52,6 +59,9 @@ public class OsnovenFragment extends Fragment {
         listaProdukti=((MainActivity)getActivity()).listaProdukti;
         lvProdukti = (ListView) v.findViewById(R.id.lvProdukti);
 
+
+
+
         Produkt.setProdukti();
         listaProdukti=Produkt.getProdukti();
         try {
@@ -64,6 +74,24 @@ public class OsnovenFragment extends Fragment {
         adapter = new ListAdapter((MainActivity)getActivity(), listaProdukti);
         lvProdukti.setAdapter(adapter);
 
+        if(savedInstanceState!=null)
+        {
+            momentalnoSelektirani = savedInstanceState.getParcelableArrayList("kluc");
+            ListView lv=v.findViewById(R.id.lvProdukti);
+            for(int i=0;i<momentalnoSelektirani.size();i++)
+            {
+                listaProdukti.get(i).setCounter(momentalnoSelektirani.get(i).getCounter());
+                adapter.notifyDataSetChanged();
+            }
+        }
+        else
+        {
+            momentalnoSelektirani=new ArrayList<Produkt>();
+           setMomentalnoSelektirani();
+        }
+
+
+
         lvProdukti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -75,6 +103,9 @@ public class OsnovenFragment extends Fragment {
                 tv.setTextColor(getResources().getColor(R.color.slikaPozadinaAccent));
                 view.setBackgroundColor(getResources().getColor(R.color.lime));
                 adapter.notifyDataSetChanged();
+                Boolean ima=false;
+
+                momentalnoSelektirani.get(position).setCounter(i);
 
 
 
@@ -154,6 +185,13 @@ public class OsnovenFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("kluc",momentalnoSelektirani);
+
+    }
+
     public static ArrayList<Produkt> getListProdukt()
     {
         return listaProdukti;
@@ -165,8 +203,6 @@ public class OsnovenFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode==0)
         {
-            //ArrayList <Produkt> l=intent.getParcelableArrayListExtra("proba");
-            //listaProdukti.add(l.get(l.size()-1));
 
             ArrayList<String> novoDodadeni=intent.getStringArrayListExtra("novoDodadeni");
 
@@ -189,6 +225,17 @@ public class OsnovenFragment extends Fragment {
                 listaProdukti.add(new Produkt(produkt, 0, R.drawable.placeholder));
             }
 
+        }
+    }
+
+    public void setMomentalnoSelektirani()
+    {
+        Produkt p;
+        for(int i=0;i<listaProdukti.size();i++) {
+            p = listaProdukti.get(i);
+            String s=p.getIme();
+            int c=p.getCounter();
+            momentalnoSelektirani.add(new Produkt(s,c));
         }
     }
 
@@ -257,6 +304,7 @@ public class OsnovenFragment extends Fragment {
         for(int i=0;i<listaProdukti.size();i++)
         {
             listaProdukti.get(i).setCounter(0);
+            momentalnoSelektirani.get(i).setCounter(0);
         }
         resetListViewProdukti();
         adapter.notifyDataSetChanged();
