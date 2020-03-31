@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lvItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+    <RadioButton
+        android:id="@+id/rbTema"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/Crna"
+        android:clickable="false"
+        android:text="RadioButton" />
+
+    <ImageView
+        android:id="@+id/ivPrimary"
+        style="@style/Paleta"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/rbTema"
+
+        />
+
+    <ImageView
+        android:id="@+id/ivPrimaryDark"
+        style="@style/Paleta"
+        android:layout_toRightOf="@id/ivPrimary"
+
+        />
+
+    <ImageView
+        android:id="@+id/ivSecondary"
+        style="@style/Paleta"
+        android:layout_toRightOf="@id/ivPrimaryDark"
+
+        />
+
+    <TextView
+        android:id="@+id/txtId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivSecondary"
+        android:layout_alignParentRight="true"
+        android:visibility="invisible"
+        android:text="TextView" />
+
+
+</RelativeLayout>

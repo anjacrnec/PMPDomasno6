@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -44,7 +46,11 @@ public class KreirajNovProduktFragment extends Fragment {
 
         final View v= inflater.inflate(R.layout.fragment_kreiraj_nov_produkt, container, false);
 
-
+        int t=Tema.odrediTema(getContext());
+        TextView tv=(TextView)v.findViewById(R.id.txtNov);
+        LinearLayout ll=(LinearLayout) v.findViewById(R.id.ll);
+        Tema.setTemaSliki(getContext(),t,tv);
+        Tema.setTemaSliki(getContext(),t,ll);
             //Intent intent = getActivity().getIntent();
             //listaProdukti = intent.getParcelableArrayListExtra("listaProduktiIntent");
            listaProduktiIminja = new ArrayList<String>();

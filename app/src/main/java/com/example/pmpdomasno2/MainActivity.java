@@ -7,8 +7,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,16 +36,41 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Tema.setOsnovniTemi(this);
+        try {
+            Tema.updateTemiLista(this);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Tema.setTema(this);
+
+
         setContentView(R.layout.activity_main);
-
-
         if(savedInstanceState==null) {
             addOsnovenFragment();
         }
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
+        // If you don't have res/menu, just create a directory named "menu" inside res
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+       if (id == R.id.btnSettings) {
+
+           Intent intent=new Intent(MainActivity.this,SettingsActivity.class);
+           startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

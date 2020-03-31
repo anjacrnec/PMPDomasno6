@@ -1,9 +1,14 @@
 <resources>
-    <string name="app_name">PMPDomasno2</string>
+    <string name="app_name">ProizvodCounter</string>
     <string name="txtVnesiImeStr">Kreiraj nov proizvod</string>
     <string name="tbVnesiImeStr">Vnesi ime na nov proizvod</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mozniTemi">Izberete tema:</string>
+    <string name="kreirajNovaTema">KREIRAJ SOPSTVENA TEMA</string>
+    <string name="primarnaBoja">Boja 1:</string>
+    <string name="SekundarnaBoja">Boja 2:</string>
+    <string name="TercijalnaBoja">Boja 3:</string>
+    <string name="KreirajTema">KREIRAJ TEMA</string>
 </resources>

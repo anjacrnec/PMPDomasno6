@@ -1,6 +1,7 @@
 package com.example.pmpdomasno2;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,7 +55,9 @@ public class OsnovenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_osnoven, container, false);
-
+        int t=Tema.odrediTema(getContext());
+        final FloatingActionButton fabKreirajNov=(FloatingActionButton) v.findViewById(R.id.fabKreirajNov);
+        Tema.setTemaSliki(getContext(),t,fabKreirajNov);
         lvProdukti=((MainActivity)getActivity()).lvProdukti;
         adapter=((MainActivity)getActivity()).adapter;
         listaProdukti=((MainActivity)getActivity()).listaProdukti;
@@ -73,7 +77,6 @@ public class OsnovenFragment extends Fragment {
 
         adapter = new ListAdapter((MainActivity)getActivity(), listaProdukti);
         lvProdukti.setAdapter(adapter);
-
         if(savedInstanceState!=null)
         {
             momentalnoSelektirani = savedInstanceState.getParcelableArrayList("kluc");
@@ -92,6 +95,7 @@ public class OsnovenFragment extends Fragment {
 
 
 
+
         lvProdukti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -99,9 +103,6 @@ public class OsnovenFragment extends Fragment {
                 int i= listaProdukti.get(position).getCounter();
                 i++;
                 listaProdukti.get(position).setCounter(i);
-               // TextView tv=(TextView) view.findViewById(R.id.txtCounter);
-               // tv.setTextColor(getResources().getColor(R.color.slikaPozadinaAccent));
-                //view.setBackgroundColor(getResources().getColor(R.color.lime));
                 adapter.notifyDataSetChanged();
                 Boolean ima=false;
 
@@ -111,6 +112,7 @@ public class OsnovenFragment extends Fragment {
 
             }
         });
+
 
         final ImageButton btnDodajProdukt=(ImageButton) v.findViewById(R.id.btnDodajProdukt);
         btnDodajProdukt.setOnClickListener(new View.OnClickListener()
@@ -154,7 +156,7 @@ public class OsnovenFragment extends Fragment {
 
 
 
-        final FloatingActionButton fabKreirajNov=(FloatingActionButton) v.findViewById(R.id.fabKreirajNov);
+
         fabKreirajNov.setOnClickListener(new View.OnClickListener()
         {
             @Override

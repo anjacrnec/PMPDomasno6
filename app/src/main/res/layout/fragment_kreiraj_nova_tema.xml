@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KreirajNovaTemaFragment">
+
+    <TextView
+        android:id="@+id/txtKreirajNova"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/kreirajNovaTema"
+        android:textSize="18dp" />
+
+
+    <RelativeLayout
+        android:id="@+id/rlPrimarna"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/txtKreirajNova">
+        <TextView
+            android:id="@+id/txtPrimarna"
+            style="@style/TxtNovaTema"
+            android:layout_marginTop="30dp"
+            android:text="@string/primarnaBoja" />
+
+        <ImageButton
+            android:id="@+id/btnPrimarna"
+            style="@style/PaletaIzbor"
+            android:layout_toRightOf="@id/txtPrimarna"
+            android:background="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rlSekundarna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/rlPrimarna"
+        >
+
+
+        <TextView
+        android:id="@+id/txtSekundarna"
+        style="@style/TxtNovaTema"
+        android:layout_marginTop="30dp"
+        android:text="@string/SekundarnaBoja" />
+
+        <ImageButton
+            android:id="@+id/btnSekundarna"
+            style="@style/PaletaIzbor"
+            android:layout_toRightOf="@id/txtSekundarna"
+            android:background="@color/colorPrimaryDark" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlTercijalna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/rlPrimarna"
+        android:layout_marginRight="40dp"
+    >
+    <TextView
+        android:id="@+id/txtTercijalna"
+        style="@style/TxtNovaTema"
+        android:layout_marginTop="30dp"
+        android:text="@string/TercijalnaBoja" />
+
+        <ImageButton
+            android:id="@+id/btnTercijalna"
+            style="@style/PaletaIzbor"
+            android:layout_toRightOf="@id/txtTercijalna"
+            android:background="@color/slikaPozadinaAccent" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSekundarna"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        >
+
+        <EditText
+            android:id="@+id/txtImeTema"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+            android:text="Ime" />
+
+        <ImageButton
+            android:id="@+id/btnKreirajNovaTema"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/txtImeTema"
+            android:backgroundTint="#FFFFFF"
+            android:src="@drawable/checkmark"
+            android:text="@string/KreirajTema"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

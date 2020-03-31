@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/pozadina_repeat"
     android:orientation="vertical"
-
-
     tools:context=".KreirajNovProizvodActivity">
 
 
@@ -21,12 +19,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txtNov"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#CDDC39"
             android:padding="10dp"
             android:text="NOV PROIZVOD:" />
+
 
         <EditText
             android:id="@+id/tbNovProdukt"
@@ -34,12 +33,13 @@
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:ems="10"
+            android:imeOptions="flagNoExtractUi"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:text="ime"
             android:textSize="14dp" />
-
         <LinearLayout
+            android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#CDDC39"

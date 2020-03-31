@@ -28,6 +28,7 @@ public class KreirajNovProizvodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Tema.setTema(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         setContentView(R.layout.activity_kreiraj_nov_proizvod_activity);

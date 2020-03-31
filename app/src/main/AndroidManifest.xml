@@ -8,10 +8,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".KreirajNovProizvodActivity" android:parentActivityName=".MainActivity">
-        </activity>
-        <activity android:name=".MainActivity">
+        android:theme="@style/Osnovna">
+        <activity android:name=".TemaActivity"
+            android:parentActivityName=".SettingsActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".KreirajNovProizvodActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity"   android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

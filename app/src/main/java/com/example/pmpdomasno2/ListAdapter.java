@@ -1,6 +1,8 @@
 package com.example.pmpdomasno2;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,10 @@ import java.util.Optional;
 
 public class ListAdapter extends BaseAdapter {
 
+
     Context context;
     private final List <Produkt> produkti;
+
 
     public ListAdapter(Context context, List<Produkt> produkti){
         //super(context, R.layout.single_list_app_item, utilsArrayList);
@@ -57,7 +61,6 @@ public class ListAdapter extends BaseAdapter {
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtImeProdukt);
             viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.txtCounter);
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.ivIkonaPordukt);
-
             result=convertView;
 
             convertView.setTag(viewHolder);
@@ -71,6 +74,9 @@ public class ListAdapter extends BaseAdapter {
         viewHolder.txtName.setText(produkti.get(position).getIme().toString());
         viewHolder.txtVersion.setText(Integer.toString(produkti.get(position).getCounter()));
         viewHolder.icon.setImageResource(produkti.get(position).getSlika());
+
+        int t=Tema.odrediTema(context);
+        Tema.setTemaSliki(context,t,viewHolder.icon);
 
         return convertView;
     }

@@ -23,7 +23,6 @@
                 android:layout_gravity="bottom|right"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="#CDDC39"
                 android:clickable="true"
                 app:srcCompat="@drawable/kreiraj_nov" />
 

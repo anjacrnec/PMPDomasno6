@@ -10,4 +10,15 @@
     <color name="mediumGrey">#b5b5b5</color>
     <color name="darkGrey">#454545</color>
     <color name="white">#ffffff</color>
+
+
+    <color name="magenta">#d62267</color>
+    <color name="magentaDark">#bf064d</color>
+
+    <color name="turquoiseDark">#18695b</color>
+    <color name="turquoiseLight">#74b3a8</color>
+
+    <color name="lilacDark">#837491</color>
+    <color name="lilac">#b099c4</color>
+    <color name="yellowLight">#fcff47</color>
 </resources>
