@@ -36,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Jazik.setJazici(getBaseContext());
+        int j=Jazik.odrediJazik(getBaseContext());
+        Jazik.smeniJazik(getBaseContext(),this,Jazik.jazici.get(j).getJazikKod(),Jazik.jazici.get(j).getDrzavaKod());
+
         Tema.setOsnovniTemi(this);
         try {
             Tema.updateTemiLista(this);
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Tema.setTema(this);
+
 
 
         setContentView(R.layout.activity_main);
@@ -86,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode,int resultCode, Intent intent) {
 
-        super.onActivityResult(requestCode, resultCode, intent);
-        if(requestCode==0)
+      super.onActivityResult(requestCode, resultCode, intent);
+       /* if(requestCode==0)
         {
             ArrayList<String> novoDodadeni=intent.getStringArrayListExtra("novoDodadeni");
 
@@ -96,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 listaProdukti.add(new Produkt(novoDodadeni.get(i),0, R.drawable.placeholder));
             }
             adapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     public void addOsnovenFragment()

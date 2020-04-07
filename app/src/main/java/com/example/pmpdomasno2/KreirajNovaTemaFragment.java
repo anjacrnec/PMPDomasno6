@@ -99,11 +99,11 @@ public class KreirajNovaTemaFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                et.setText("Ime");
+                et.setText(getContext().getResources().getString(R.string.ime));
                 b1.setBackgroundColor(bojaCur1);
                 b2.setBackgroundColor(bojaCur2);
                 b3.setBackgroundColor(bojaCur3);
-                Toast.makeText(getContext(),"Uspehsno dodadena tema!",Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(),getContext().getResources().getString(R.string.uspeshnoKreiranaTema),Toast.LENGTH_SHORT);
             }
         });
 

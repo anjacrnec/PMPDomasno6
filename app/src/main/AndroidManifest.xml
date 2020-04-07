@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pmpdomasno2">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,17 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Osnovna">
-        <activity android:name=".TemaActivity"
+        <activity android:name=".ZaNasActivity" android:configChanges="orientation|screenSize"></activity>
+        <activity
+            android:name=".JazikActivity"
+            android:parentActivityName=".SettingsActivity" />
+        <activity
+            android:name=".TemaActivity"
+            android:configChanges="locale"
             android:parentActivityName=".SettingsActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".KreirajNovProizvodActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity"   android:windowSoftInputMode="adjustPan">
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

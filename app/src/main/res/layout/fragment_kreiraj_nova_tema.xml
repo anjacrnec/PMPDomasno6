@@ -99,7 +99,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-            android:text="Ime" />
+            android:text="@string/ime" />
 
         <ImageButton
             android:id="@+id/btnKreirajNovaTema"

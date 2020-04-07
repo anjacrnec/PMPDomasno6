@@ -169,10 +169,10 @@ public class Tema {
     {
         Resources r=context.getResources();
         temi=new ArrayList<Tema>();
-        temi.add(new Tema(1,"Osnovna",r.getColor(R.color.colorPrimary),r.getColor(R.color.colorPrimaryDark),r.getColor(R.color.slikaPozadinaAccent)));
-        temi.add(new Tema(2,"Magenta",r.getColor(R.color.magenta),r.getColor(R.color.magentaDark), r.getColor(R.color.mediumGrey)));
-        temi.add(new Tema(3,"Tropical",r.getColor(R.color.turquoiseDark),r.getColor(R.color.colorPrimaryDark),r.getColor(R.color.turquoiseLight)));
-        temi.add(new Tema(4,"Lilac",r.getColor(R.color.lilac),r.getColor(R.color.lilacDark),r.getColor(R.color.yellowLight)));
+        temi.add(new Tema(1,r.getString(R.string.temaOsnovna),r.getColor(R.color.colorPrimary),r.getColor(R.color.colorPrimaryDark),r.getColor(R.color.slikaPozadinaAccent)));
+        temi.add(new Tema(2,r.getString(R.string.temaMagenta),r.getColor(R.color.magenta),r.getColor(R.color.magentaDark), r.getColor(R.color.mediumGrey)));
+        temi.add(new Tema(3,r.getString(R.string.temaTirkiz),r.getColor(R.color.turquoiseDark),r.getColor(R.color.colorPrimaryDark),r.getColor(R.color.turquoiseLight)));
+        temi.add(new Tema(4,r.getString(R.string.temaLilava),r.getColor(R.color.lilac),r.getColor(R.color.lilacDark),r.getColor(R.color.yellowLight)));
 
         int t=odrediTema(context);
         for(int i=0;i<temi.size();i++)

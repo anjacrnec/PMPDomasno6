@@ -80,6 +80,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:srcCompat="@drawable/istorija" />
+
         </LinearLayout>
 
     </LinearLayout>

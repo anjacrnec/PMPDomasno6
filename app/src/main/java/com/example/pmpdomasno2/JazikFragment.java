@@ -3,47 +3,51 @@ package com.example.pmpdomasno2;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
-public class TemaPostaviFragment extends Fragment {
+public class JazikFragment extends Fragment {
 
-    ArrayList<Tema> temi;
-    ListView lvTemi;
-    ListTemaAdapter adapter;
-
-
-    public TemaPostaviFragment() {
-
+    public JazikFragment() {
+        // Required empty public constructor
     }
 
+    ArrayList<Jazik> jazici;
+    ListJazikAdapter adapter;
+    ListView lvJazici;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View v=inflater.inflate(R.layout.fragment_tema_postavi, container, false);
+        View v= inflater.inflate(R.layout.fragment_jazik, container, false);
 
-        temi=Tema.temi;
-
-        ListView lv=(ListView)v.findViewById(R.id.lvTemi);
-        adapter=new ListTemaAdapter(getActivity(),temi);
+        Jazik.setJazici(getContext());
+        jazici=Jazik.jazici;
+        ListView lv=(ListView)v.findViewById(R.id.lvJazici);
+        adapter=new ListJazikAdapter(getActivity(),jazici);
         lv.setAdapter(adapter);
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
@@ -51,56 +55,43 @@ public class TemaPostaviFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                RadioButton rb=(RadioButton)view.findViewById(R.id.rbTema);
+                RadioButton rb=(RadioButton)view.findViewById(R.id.rbJazik);
                 rb.setChecked(true);
-                TextView tv=(TextView)view.findViewById(R.id.txtId);
-                String strId=tv.getText().toString();
-                final int  intId=Integer.parseInt(strId);
-                String s=rb.getText().toString();
-                Tema.checkTemiSporedMomentalna(v.getContext(),intId,false,true);
+                jazici.get(position).setChecked(true);
+                jazici.get(Jazik.odrediJazik(getContext())).setChecked(false);
                 adapter.notifyDataSetChanged();
-                potvrdiSmena(v,intId);
-
-
+                potvrdiSmena(view,position);
 
             }
         });
-
-
-        return  v;
+        return v;
     }
 
-    public void potvrdiSmena(final View v,final int id)
+
+    public void potvrdiSmena(final View v,final int pos)
     {
         Resources res=getContext().getResources();
         AlertDialog dialog=new AlertDialog.Builder(v.getContext())
-                .setTitle(res.getString(R.string.potvrdaSmenaTemaNaslov))
-                .setMessage(res.getString(R.string.potvrdaSmenaTemaOpis))
+                .setTitle(res.getString(R.string.potvrdiSmenaJazikNaslov))
+                .setMessage(res.getString(R.string.potvrdaSmenaJazikOpis))
                 .setPositiveButton(res.getString(R.string.da), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Tema.setTemaPrefs(getActivity(),id);
-                        Tema.restartTema(getActivity());
+                        Jazik.smeniJazik(getContext(),getActivity(),jazici.get(pos).getJazikKod(),jazici.get(pos).getDrzavaKod());
+                        Jazik.setJazikPrefs(getActivity(),pos);
+                        Jazik.restartSmenaJazik(getActivity());
                     }
                 })
                 .setNegativeButton(res.getString(R.string.ne), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Tema.checkTemiSporedMomentalna(v.getContext(),id,true,false);
+                        jazici.get(pos).setChecked(false);
+                        jazici.get(Jazik.odrediJazik(getContext())).setChecked(true);
                         adapter.notifyDataSetChanged();
                     }
                 }).create();
         dialog.show();
 
     }
-
-    public ListTemaAdapter getListTemaAdapter()
-    {
-        return adapter;
-    }
-
-
-
-
 
 }

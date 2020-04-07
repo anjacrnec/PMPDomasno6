@@ -2,6 +2,7 @@ package com.example.pmpdomasno2;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -99,7 +100,7 @@ public class KreirajNovProduktFragment extends Fragment {
 
     public Boolean kreirajNovProdukt(EditText et) throws FileNotFoundException {
 
-        daliValiden=true;
+       daliValiden=true;
         porakaValidnost="";
         proveriValidnostNanNovProdukt(et);
         if(daliValiden) {
@@ -107,13 +108,13 @@ public class KreirajNovProduktFragment extends Fragment {
             String ime = et.getText().toString();
             ps.println(ime);
             ps.close();
-            Produkt p = new Produkt(ime, 0, R.drawable.placeholder);
+            Produkt p = new Produkt(ime,ime, 0, R.drawable.placeholder);
             listaProdukti.add(p);
             listaProduktiIminja.add(ime);
             novoDodadeni.add(ime);
 
             et.setText("");
-            String poraka = "Uspehsno dodaden produktot " + ime;
+            String poraka = getContext().getResources().getString(R.string.uspeshnoKreiranProdukt) + ime;
             Toast.makeText(getActivity(), poraka+" "+porakaValidnost, Toast.LENGTH_SHORT).show();
         }
         else
@@ -127,25 +128,35 @@ public class KreirajNovProduktFragment extends Fragment {
     public void proveriValidnostNanNovProdukt(EditText et)
     {
 
-
+        Resources res=getContext().getResources();
         String ime=et.getText().toString();
-
+        char [] imeChar=ime.toCharArray();
 
         if(ime=="" || ime.isEmpty())
         {
-            porakaValidnost="Ne mozite da vnesite produkt bez ime!";
+            porakaValidnost=res.getString(R.string.warningProduktBezIme);
             daliValiden=false;
 
         }
         else {
-            for (int i = 0; i < listaProdukti.size(); i++) {
-                if (ime.equalsIgnoreCase(listaProdukti.get(i).getIme())) {
-                    porakaValidnost = "Ne mozite da vnesite produkt so ime " + ime + "bidejki vejke e vnesen takov produkt";
-                    daliValiden = false;
 
+            for (int i = 0; i < imeChar.length; i++) {
+                if (Character.isDigit(imeChar[i])) {
+                    porakaValidnost = res.getString(R.string.warningProduktiBroj, ime);
+                    daliValiden = false;
                 }
-                if (!daliValiden)
-                    break;
+            }
+
+            if (daliValiden) {
+                for (int i = 0; i < listaProdukti.size(); i++) {
+                    if (ime.equalsIgnoreCase(listaProdukti.get(i).getIme()) || ime.equalsIgnoreCase(listaProdukti.get(i).getKod())) {
+                        porakaValidnost = res.getString(R.string.warningProduktistoIme, ime);
+                        daliValiden = false;
+
+                    }
+                    if (!daliValiden)
+                        break;
+                }
             }
         }
     }

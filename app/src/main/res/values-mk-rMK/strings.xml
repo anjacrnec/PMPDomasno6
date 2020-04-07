@@ -5,7 +5,7 @@
     <string name="tbVnesiImeStr">Vnesi ime na nov proizvod</string>
 
 
-    <string name="temi">yo</string>
+    <string name="temi">Теми</string>
     <string name="temaOsnovna">Основна</string>
     <string name="temaMagenta">Магента</string>
     <string name="temaTirkiz">Тиркиз</string>
@@ -32,11 +32,13 @@
     <string name="banana">Банана</string>
     <string name="vino">Вино</string>
 
+
     <string name="nemaDodadeniProdukti">Немате селектирано ниту еден продукт!</string>
     <plurals name="uspeshnoDodadeniProdukti">
-        <item quantity="one">Успешно додаден продукт: </item>
+        <item quantity="one">Успешно додаден продукт:</item>
         <item quantity="other">Успешно додадени продукти:</item>
     </plurals>
+
     <string name="istorijaProdukti">Историја на продадени продукти:</string>
     <string name="kolicna">кол</string>
 
@@ -48,8 +50,8 @@
     <string name="warningProduktBezIme">Не можите да креирате продукт без име!</string>
     <string name="warningProduktistoIme">Не можите да креирате продукт со име %1$s бидејќи веќе постој таков продукт</string>
     <string name="warningProduktiBroj">Не моѓите да креирате продукт со бројка во името</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="about">За нас</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

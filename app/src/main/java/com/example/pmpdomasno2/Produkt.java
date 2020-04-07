@@ -1,5 +1,7 @@
 package com.example.pmpdomasno2;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,12 +10,18 @@ import java.util.List;
 
 public class Produkt implements Parcelable {
 
+
+
+    private int id;
+    private String kod;
     private String ime;
     private int counter;
     private int slika;
     private static ArrayList<Produkt> produkti;
 
-    public Produkt(String ime, int counter, int slika) {
+    public Produkt(String kod,String ime, int counter, int slika) {
+        this.id=id;
+        this.kod=kod;
         this.ime = ime;
         this.counter = counter;
         this.slika = slika;
@@ -25,6 +33,18 @@ public class Produkt implements Parcelable {
 
     }
 
+    public String getKod() {
+        return kod;
+    }
+
+    public void setKod(String kod) {
+        this.kod = kod;
+    }
+
+
+    public int getId() {
+        return id;
+    }
     public String getIme() {
         return ime;
     }
@@ -49,13 +69,14 @@ public class Produkt implements Parcelable {
         this.slika = slika;
     }
 
-    public static void setProdukti()
+    public static void setProdukti(Context context)
     {
-        Produkt banana=new Produkt("Banana",0,R.drawable.bananas);
-        Produkt leb=new Produkt("Leb",0,R.drawable.leb);
-        Produkt kafe=new Produkt("Kafe",0,R.drawable.kafe);
-        Produkt jabolko=new Produkt("jabolko",0,R.drawable.jabolko);
-        Produkt  vino=new Produkt("vino",0,R.drawable.vino);
+        Resources resources=context.getResources();
+        Produkt banana=new Produkt("banana1",resources.getString(R.string.banana),0,R.drawable.bananas);
+        Produkt leb=new Produkt("leb1",resources.getString(R.string.leb),0,R.drawable.leb);
+        Produkt kafe=new Produkt("kafe1",resources.getString(R.string.kafe),0,R.drawable.kafe);
+        Produkt jabolko=new Produkt("jabolko1",resources.getString(R.string.jabolko),0,R.drawable.jabolko);
+        Produkt  vino=new Produkt("vino1",resources.getString(R.string.vino),0,R.drawable.vino);
 
         ArrayList<Produkt> listaProdukti=new ArrayList<Produkt>();
         listaProdukti.add(banana);

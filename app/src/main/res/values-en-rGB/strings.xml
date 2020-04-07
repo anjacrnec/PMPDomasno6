@@ -1,0 +1,5 @@
+<resources>
+    <string name="primarnaBoja">Colour 1:</string>
+    <string name="SekundarnaBoja">Colour 2:</string>
+    <string name="TercijalnaBoja">Colour 3:</string>
+</resources>

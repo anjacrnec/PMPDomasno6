@@ -1,0 +1,50 @@
+<resources>
+
+    <string name="app_name">ProductCounter</string>
+    <string name="txtVnesiImeStr">Create new product:</string>
+    <string name="tbVnesiImeStr">Vnesi ime na nov proizvod</string>
+
+
+
+    <string name="temi">Themes</string>
+    <string name="temaOsnovna">Basic</string>
+    <string name="temaMagenta">Magenta</string>
+    <string name="temaTirkiz">Turqoise</string>
+    <string name="temaLilava">Lilac</string>
+    <string name="mozniTemi">Choose a theme:</string>
+    <string name="kreirajNovaTema">Create new theme</string>
+    <string name="KreirajTema">Create theme</string>
+    <string name="uspeshnoKreiranaTema">Successfully created new theme</string>
+    <string name="potvrdaSmenaTemaNaslov">Change theme</string>
+    <string name="potvrdaSmenaTemaOpis">Changing the theme of the applictaion requires a restart. Do you want to change the theme? </string>
+    <string name="da">Yes</string>
+    <string name="ne">No</string>
+
+    <string name="jazik">Language</string>
+    <string name="potvrdiSmenaJazikNaslov">Change language</string>
+    <string name="potvrdaSmenaJazikOpis">Changing the language of the applictaion requires a restart. Do you want to change the language? </string>
+
+    <string name="jabolko">Apple</string>
+    <string name="leb">Bread</string>
+    <string name="kafe">Coffee</string>
+    <string name="banana">Banana</string>
+    <string name="vino">Wine</string>
+    <string name="nemaDodadeniProdukti">=You haven\'t selected any products</string>
+    <plurals name="uspeshnoDodadeniProdukti">
+        <item quantity="one">Successfully added product:</item>
+        <item quantity="other">Successfully added products:</item>
+    </plurals>
+
+    <string name="istorijaProdukti">History of sold products:</string>
+    <string name="kolicna">count</string>
+
+
+    <string name="kreiraj">CREATE PRODUCT</string>
+    <string name="ime">Name</string>
+    <string name="novProizvod">NEW PRODUCT:</string>
+    <string name="uspeshnoKreiranProdukt">Successfully created the product: </string>
+    <string name="warningProduktBezIme">You can\'t create a product without a name!</string>
+    <string name="warningProduktistoIme">You can\'t create a product with the name %1$s because such a product already exists</string>
+    <string name="warningProduktiBroj">You can\'t create a product with a name that contains numbers</string>
+    <string name="about">About us</string>
+</resources>

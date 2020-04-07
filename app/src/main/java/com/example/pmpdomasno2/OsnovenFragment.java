@@ -3,12 +3,14 @@ package com.example.pmpdomasno2;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -66,7 +69,7 @@ public class OsnovenFragment extends Fragment {
 
 
 
-        Produkt.setProdukti();
+        Produkt.setProdukti(getContext());
         listaProdukti=Produkt.getProdukti();
         try {
             updateListProdukti();
@@ -203,7 +206,7 @@ public class OsnovenFragment extends Fragment {
 
     public void onActivityResult(int requestCode,int resultCode, Intent intent) {
 
-        super.onActivityResult(requestCode, resultCode, intent);
+       super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode==0)
         {
 
@@ -211,7 +214,7 @@ public class OsnovenFragment extends Fragment {
 
             for(int i=0;i<novoDodadeni.size();i++)
             {
-                listaProdukti.add(new Produkt(novoDodadeni.get(i),0, R.drawable.placeholder));
+                listaProdukti.add(new Produkt(novoDodadeni.get(i),novoDodadeni.get(i),0, R.drawable.placeholder));
             }
             adapter.notifyDataSetChanged();
         }
@@ -219,13 +222,12 @@ public class OsnovenFragment extends Fragment {
     }
 
     public void updateListProdukti() throws FileNotFoundException {
-        File file = getActivity().getFileStreamPath("novoDodadeniProdukti");
+       File file = getActivity().getFileStreamPath("novoDodadeniProdukti");
         if (file.exists()) {
             Scanner scan = new Scanner(getActivity().openFileInput("novoDodadeniProdukti"));
             while (scan.hasNext()) {
                 String produkt = scan.nextLine();
-
-                listaProdukti.add(new Produkt(produkt, 0, R.drawable.placeholder));
+                listaProdukti.add(new Produkt(produkt,produkt, 0, R.drawable.placeholder));
             }
 
         }
@@ -243,33 +245,42 @@ public class OsnovenFragment extends Fragment {
     }
 
     public void dodajProdukt() throws FileNotFoundException {
+        Resources res=getResources();
         PrintStream ps=new PrintStream(getActivity().openFileOutput("vkupnoProdukti",getActivity().MODE_APPEND));
-        String poraka="Uspeshno dodadeni proizvodi: ";
+        String poraka="";
+        int counterCounter=0;
         for(int i=0;i<listaProdukti.size();i++)
         {
             int countKliknato=listaProdukti.get(i).getCounter();
             for(int j=0;j<countKliknato;j++)
             {
-                ps.println(listaProdukti.get(i).getIme());
+                ps.println(listaProdukti.get(i).getKod());
 
             }
             if(countKliknato!=0) {
-                poraka = poraka + "\n" + listaProdukti.get(i).getIme() + " kol: " + countKliknato;
+                poraka = poraka + "\n" + listaProdukti.get(i).getIme()+" " + res.getString(R.string.kolicna) +" "+ countKliknato;
                 listaProdukti.get(i).setCounter(0);
+                counterCounter=counterCounter+countKliknato;
             }
             resetListViewProdukti();
             adapter.notifyDataSetChanged();
         }
         ps.close();
 
-        Toast.makeText((MainActivity)getActivity(),poraka,Toast.LENGTH_LONG).show();
+        String celaPoraka;
+        if (counterCounter==0)
+            celaPoraka=res.getString(R.string.nemaDodadeniProdukti);
+        else
+            celaPoraka=res.getQuantityString(R.plurals.uspeshnoDodadeniProdukti,counterCounter)+poraka;
+        Toast.makeText((MainActivity)getActivity(),celaPoraka,Toast.LENGTH_LONG).show();
 
     }
 
     public void prikaziIstorijaProdukti() throws FileNotFoundException {
+        Resources res=getContext().getResources();
         Scanner scan=new Scanner(getActivity().openFileInput("vkupnoProdukti"));
         ArrayList<String> produktiOdDatoteka=new ArrayList<String>();
-        String poraka="Istorija na prodadeni produkti: ";
+        String poraka=res.getString(R.string.istorijaProdukti);
         while(scan.hasNext())
         {
             String produkt=scan.nextLine();
@@ -280,10 +291,10 @@ public class OsnovenFragment extends Fragment {
             int k=0;
             for(int j=0;j<produktiOdDatoteka.size();j++)
             {
-                if(listaProdukti.get(i).getIme().equalsIgnoreCase(produktiOdDatoteka.get(j)))
+                if(listaProdukti.get(i).getKod().equalsIgnoreCase(produktiOdDatoteka.get(j)))
                     k++;
             }
-            poraka=poraka+"\n"+listaProdukti.get(i).getIme()+" kol: "+k+" "+p;
+            poraka=poraka+"\n"+listaProdukti.get(i).getIme()+" "+res.getString(R.string.kolicna)+" "+k+" "+p;
 
         }
         Toast.makeText((MainActivity)getActivity(),poraka,Toast.LENGTH_LONG).show();

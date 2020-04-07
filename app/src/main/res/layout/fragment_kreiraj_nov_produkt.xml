@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="#CDDC39"
             android:padding="10dp"
-            android:text="NOV PROIZVOD:" />
+            android:text="@string/novProizvod" />
 
 
         <EditText
@@ -36,7 +36,7 @@
             android:imeOptions="flagNoExtractUi"
             android:inputType="textPersonName"
             android:padding="10dp"
-            android:text="ime"
+            android:text="@string/ime"
             android:textSize="14dp" />
         <LinearLayout
             android:id="@+id/ll"
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Kreiraj" />
+                android:text="@string/kreiraj" />
 
 
         </LinearLayout>

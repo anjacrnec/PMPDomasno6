@@ -1,6 +1,7 @@
 package com.example.pmpdomasno2;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -37,7 +38,10 @@ public class SettingsFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_settings, container, false);
 
         opcii=new ArrayList<String>();
-        opcii.add("Temi");
+        Resources res=getContext().getResources();
+        opcii.add(res.getString(R.string.temi));
+        opcii.add(res.getString(R.string.jazik));
+        opcii.add(res.getString(R.string.about));
         ListView lv=(ListView)v.findViewById(R.id.lvOpcii);
         adapter=new ListSettingsAdapter((SettingsActivity)getActivity(),opcii);
         lv.setAdapter(adapter);
@@ -47,10 +51,21 @@ public class SettingsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
 
-                Intent intent=new Intent(getActivity(), TemaActivity.class);
-                intent.putExtra("klucOpcija",0);
-                startActivity(intent);
-                adapter.notifyDataSetChanged();
+                if(position==0)
+                {
+                    Intent intent = new Intent(getActivity(), TemaActivity.class);
+                    startActivity(intent);
+                }
+                else  if(position==1)
+                {
+                    Intent intent = new Intent(getActivity(), JazikActivity.class);
+                    startActivity(intent);
+                }
+                else if(position==2)
+                {
+                    Intent intent = new Intent(getActivity(), ZaNasActivity.class);
+                    startActivity(intent);
+                }
 
 
 
