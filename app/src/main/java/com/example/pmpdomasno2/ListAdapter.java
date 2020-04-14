@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,13 +21,12 @@ public class ListAdapter extends BaseAdapter {
 
 
     Context context;
-    private final List <Produkt> produkti;
+    private  List <Produkt> produkti=new ArrayList<Produkt>();
 
 
-    public ListAdapter(Context context, List<Produkt> produkti){
-        //super(context, R.layout.single_list_app_item, utilsArrayList);
+    public ListAdapter(Context context){
         this.context = context;
-        this.produkti=produkti;
+
     }
 
     @Override
@@ -60,6 +60,7 @@ public class ListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.moj_lv_layout, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtImeProdukt);
             viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.txtCounter);
+            viewHolder.txtId=(TextView) convertView.findViewById(R.id.txtProduktID);
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.ivIkonaPordukt);
             result=convertView;
 
@@ -72,7 +73,8 @@ public class ListAdapter extends BaseAdapter {
 
 
         viewHolder.txtName.setText(produkti.get(position).getIme().toString());
-        viewHolder.txtVersion.setText(Integer.toString(produkti.get(position).getCounter()));
+        viewHolder.txtId.setText(Integer.toString(produkti.get(position).getId()));
+        viewHolder.txtVersion.setText(Integer.toString(produkti.get(position).getCounterTemp()));
         viewHolder.icon.setImageResource(produkti.get(position).getSlika());
 
         int t=Tema.odrediTema(context);
@@ -81,12 +83,23 @@ public class ListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public Produkt getProduktAt(int pos)
+    {
+        return produkti.get(pos);
+    }
 
     private static class ViewHolder {
 
         TextView txtName;
         TextView txtVersion;
+        TextView txtId;
         ImageView icon;
 
+    }
+
+    public void setProdukti(List<Produkt> produkti)
+    {
+        this.produkti=produkti;
+        notifyDataSetChanged();
     }
 }

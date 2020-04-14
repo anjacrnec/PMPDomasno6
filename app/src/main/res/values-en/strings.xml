@@ -31,10 +31,11 @@
     <string name="vino">Wine</string>
     <string name="nemaDodadeniProdukti">=You haven\'t selected any products</string>
     <plurals name="uspeshnoDodadeniProdukti">
-        <item quantity="one">Successfully added product:</item>
-        <item quantity="other">Successfully added products:</item>
+        <item quantity="one">Successfully added 1 product</item>
+        <item quantity="other">Successfully added %1$d products</item>
     </plurals>
-
+    <string name="potvrdaBrisenjeProduktOpis">Are you sure you want to delete the product %1$s?</string>
+    <string name="potvrdaBrisenjeProduktNaslov">Delete product</string>
     <string name="istorijaProdukti">History of sold products:</string>
     <string name="kolicna">count</string>
 

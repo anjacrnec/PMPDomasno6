@@ -1,5 +1,6 @@
 package com.example.pmpdomasno2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -25,18 +26,12 @@ import java.util.ArrayList;
 
 
 public class KreirajNovProduktFragment extends Fragment {
-    ArrayList<Produkt> listaProdukti;
-    ArrayList<String> novoDodadeni;
-   ArrayList<String> listaProduktiIminja;
-    Boolean daliValiden;
-    String porakaValidnost;
 
-    ListView lvProduktiKratko;
-    Boolean proveriLvProduktiKratko;
 
+   public static final String novProduktImeKluc="novProduktIme";
 
     public KreirajNovProduktFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -52,23 +47,6 @@ public class KreirajNovProduktFragment extends Fragment {
         LinearLayout ll=(LinearLayout) v.findViewById(R.id.ll);
         Tema.setTemaSliki(getContext(),t,tv);
         Tema.setTemaSliki(getContext(),t,ll);
-            //Intent intent = getActivity().getIntent();
-            //listaProdukti = intent.getParcelableArrayListExtra("listaProduktiIntent");
-           listaProduktiIminja = new ArrayList<String>();
-            novoDodadeni = new ArrayList<String>();
-            if(getResources().getConfiguration().orientation==Configuration.ORIENTATION_PORTRAIT) {
-               listaProdukti = KreirajNovProizvodActivity.getListaProdukt();
-               listaProduktiIminja = KreirajNovProizvodActivity.getListaIminja();
-              // for (int i = 0; i < listaProdukti.size(); i++)
-                    //listaProduktiIminja.add(listaProdukti.get(i).getIme());
-
-            }
-            else
-            {
-                listaProdukti=OsnovenFragment.getListProdukt();
-                for (int i = 0; i < listaProdukti.size(); i++)
-                    listaProduktiIminja.add(listaProdukti.get(i).getIme());
-            }
 
 
 
@@ -80,16 +58,13 @@ public class KreirajNovProduktFragment extends Fragment {
             {
 
                 EditText et=(EditText)v.findViewById(R.id.tbNovProdukt);
-                try {
                     kreirajNovProdukt(et);
                     if(getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE)
                     {
                         OsnovenFragment.adapter.notifyDataSetChanged();
-                        OsnovenFragment.momentalnoSelektirani.add(new Produkt(listaProdukti.get(listaProdukti.size()-1).getIme(),listaProdukti.get(listaProdukti.size()-1).getCounter()));
+
                     }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+
 
             }
         });
@@ -98,67 +73,21 @@ public class KreirajNovProduktFragment extends Fragment {
         return v;
     }
 
-    public Boolean kreirajNovProdukt(EditText et) throws FileNotFoundException {
 
-       daliValiden=true;
-        porakaValidnost="";
-        proveriValidnostNanNovProdukt(et);
-        if(daliValiden) {
-            PrintStream ps = new PrintStream(getActivity().openFileOutput("novoDodadeniProdukti", getActivity().MODE_APPEND));
-            String ime = et.getText().toString();
-            ps.println(ime);
-            ps.close();
-            Produkt p = new Produkt(ime,ime, 0, R.drawable.placeholder);
-            listaProdukti.add(p);
-            listaProduktiIminja.add(ime);
-            novoDodadeni.add(ime);
-
-            et.setText("");
-            String poraka = getContext().getResources().getString(R.string.uspeshnoKreiranProdukt) + ime;
-            Toast.makeText(getActivity(), poraka+" "+porakaValidnost, Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(getActivity(),porakaValidnost,Toast.LENGTH_SHORT).show();
-        }
-
-        return daliValiden;
-    }
-
-    public void proveriValidnostNanNovProdukt(EditText et)
+    public void kreirajNovProdukt(EditText et)
     {
-
         Resources res=getContext().getResources();
         String ime=et.getText().toString();
-        char [] imeChar=ime.toCharArray();
-
-        if(ime=="" || ime.isEmpty())
+        if(ime.trim().isEmpty())
         {
-            porakaValidnost=res.getString(R.string.warningProduktBezIme);
-            daliValiden=false;
-
+            Toast.makeText(getContext(),res.getString(R.string.warningProduktBezIme),Toast.LENGTH_LONG);
+            return;
         }
-        else {
 
-            for (int i = 0; i < imeChar.length; i++) {
-                if (Character.isDigit(imeChar[i])) {
-                    porakaValidnost = res.getString(R.string.warningProduktiBroj, ime);
-                    daliValiden = false;
-                }
-            }
-
-            if (daliValiden) {
-                for (int i = 0; i < listaProdukti.size(); i++) {
-                    if (ime.equalsIgnoreCase(listaProdukti.get(i).getIme()) || ime.equalsIgnoreCase(listaProdukti.get(i).getKod())) {
-                        porakaValidnost = res.getString(R.string.warningProduktistoIme, ime);
-                        daliValiden = false;
-
-                    }
-                    if (!daliValiden)
-                        break;
-                }
-            }
-        }
+        Produkt p=new Produkt(ime,0,0,R.drawable.placeholder);
+        OsnovenFragment.getPcViewModel().insert(p);
+        et.setText("");
+        Toast.makeText(getContext(),res.getString(R.string.uspeshnoKreiranProdukt)+" "+ime,Toast.LENGTH_SHORT).show();
     }
 
 

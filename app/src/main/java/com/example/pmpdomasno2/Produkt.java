@@ -5,41 +5,61 @@ import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity(tableName = "table_produkt")
 public class Produkt implements Parcelable {
 
 
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
-    private String kod;
+
+
+
     private String ime;
+
     private int counter;
+
+    private int counterTemp;
+
     private int slika;
+
+
+    @Ignore
     private static ArrayList<Produkt> produkti;
 
-    public Produkt(String kod,String ime, int counter, int slika) {
+    @Ignore
+    public Produkt(int id,String ime, int counter, int slika) {
         this.id=id;
-        this.kod=kod;
         this.ime = ime;
         this.counter = counter;
         this.slika = slika;
     }
 
-    public Produkt(String ime, int counter ) {
+    public Produkt(String ime,int counterTemp,  int counter, int slika) {
+        this.ime = ime;
+        this.counterTemp=counterTemp;
+        this.counter = counter;
+        this.slika = slika;
+    }
+
+
+    @Ignore
+    public Produkt(String ime, int counter) {
         this.ime = ime;
         this.counter = counter;
 
     }
-
-    public String getKod() {
-        return kod;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setKod(String kod) {
-        this.kod = kod;
-    }
 
 
     public int getId() {
@@ -51,6 +71,14 @@ public class Produkt implements Parcelable {
 
     public void setIme(String ime) {
         this.ime = ime;
+    }
+
+    public int getCounterTemp() {
+        return counterTemp;
+    }
+
+    public void setCounterTemp(int counterTemp) {
+        this.counterTemp = counterTemp;
     }
 
     public int getCounter() {
@@ -69,14 +97,15 @@ public class Produkt implements Parcelable {
         this.slika = slika;
     }
 
-    public static void setProdukti(Context context)
+    public static List<Produkt> inicijalizacijaProdukti(Context context)
     {
+
         Resources resources=context.getResources();
-        Produkt banana=new Produkt("banana1",resources.getString(R.string.banana),0,R.drawable.bananas);
-        Produkt leb=new Produkt("leb1",resources.getString(R.string.leb),0,R.drawable.leb);
-        Produkt kafe=new Produkt("kafe1",resources.getString(R.string.kafe),0,R.drawable.kafe);
-        Produkt jabolko=new Produkt("jabolko1",resources.getString(R.string.jabolko),0,R.drawable.jabolko);
-        Produkt  vino=new Produkt("vino1",resources.getString(R.string.vino),0,R.drawable.vino);
+        Produkt banana=new Produkt(resources.getString(R.string.banana),0,0,R.drawable.bananas);
+        Produkt leb=new Produkt(resources.getString(R.string.leb),0,0,R.drawable.leb);
+        Produkt kafe=new Produkt(resources.getString(R.string.kafe),0,0,R.drawable.kafe);
+        Produkt jabolko=new Produkt(resources.getString(R.string.jabolko),0,0,R.drawable.jabolko);
+        Produkt  vino=new Produkt(resources.getString(R.string.vino),0,0,R.drawable.vino);
 
         ArrayList<Produkt> listaProdukti=new ArrayList<Produkt>();
         listaProdukti.add(banana);
@@ -85,7 +114,7 @@ public class Produkt implements Parcelable {
         listaProdukti.add(jabolko);
         listaProdukti.add(vino);
 
-        produkti=listaProdukti;
+        return listaProdukti;
     }
 
     public static ArrayList<Produkt> getProdukti()
@@ -124,3 +153,4 @@ public class Produkt implements Parcelable {
         }
     };
 }
+

@@ -32,14 +32,6 @@ public class KreirajNovProizvodActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         setContentView(R.layout.activity_kreiraj_nov_proizvod_activity);
-        Intent intent=getIntent();
-        listaProduktiIminja=new ArrayList<String>();
-        listaProdukti= intent.getParcelableArrayListExtra("listaProduktiIntent");
-        for(int i=0;i<listaProdukti.size();i++)
-        {
-            listaProduktiIminja.add(listaProdukti.get(i).getIme());
-        }
-
         addKreirajNovProizvodFragment();
 
 
@@ -55,16 +47,6 @@ public class KreirajNovProizvodActivity extends AppCompatActivity {
     }
 
 
-
-    public static ArrayList<String> getListaIminja()
-    {
-        return listaProduktiIminja;
-    }
-
-    public static ArrayList<Produkt> getListaProdukt()
-    {
-        return listaProdukti;
-    }
 
 
 

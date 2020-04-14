@@ -35,13 +35,14 @@
 
     <string name="nemaDodadeniProdukti">Немате селектирано ниту еден продукт!</string>
     <plurals name="uspeshnoDodadeniProdukti">
-        <item quantity="one">Успешно додаден продукт:</item>
-        <item quantity="other">Успешно додадени продукти:</item>
+        <item quantity="one">Успешно додаден 1 продукт</item>
+        <item quantity="other">Успешно додадени %1$d продукти</item>
     </plurals>
 
     <string name="istorijaProdukti">Историја на продадени продукти:</string>
     <string name="kolicna">кол</string>
-
+    <string name="potvrdaBrisenjeProduktOpis">Дали сигурно сакате да го избришите продуктот %1$s ?</string>
+    <string name="potvrdaBrisenjeProduktNaslov">Бришење продукт</string>
 
     <string name="kreiraj">КРЕИРАЈ ПРОИЗВОД</string>
     <string name="ime">Име</string>

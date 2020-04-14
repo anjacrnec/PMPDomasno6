@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.system.Os;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -70,15 +72,19 @@ public class JazikFragment extends Fragment {
 
     public void potvrdiSmena(final View v,final int pos)
     {
-        Resources res=getContext().getResources();
+        final Resources res=getContext().getResources();
         AlertDialog dialog=new AlertDialog.Builder(v.getContext())
                 .setTitle(res.getString(R.string.potvrdiSmenaJazikNaslov))
                 .setMessage(res.getString(R.string.potvrdaSmenaJazikOpis))
                 .setPositiveButton(res.getString(R.string.da), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         Jazik.smeniJazik(getContext(),getActivity(),jazici.get(pos).getJazikKod(),jazici.get(pos).getDrzavaKod());
                         Jazik.setJazikPrefs(getActivity(),pos);
+                        List<Produkt> defaultProdukti=Produkt.inicijalizacijaProdukti(getContext());
+                        for(int i=0;i<defaultProdukti.size();i++)
+                            OsnovenFragment.getPcViewModel().updateDeafultProdukti(defaultProdukti.get(i).getIme(),i+1);
                         Jazik.restartSmenaJazik(getActivity());
                     }
                 })

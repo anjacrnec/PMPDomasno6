@@ -19,6 +19,14 @@
         android:scaleType="fitCenter" />
 
     <TextView
+        android:id="@+id/txtProduktID"
+        android:layout_toRightOf="@id/ivIkonaPordukt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        />
+
+    <TextView
         android:id="@+id/txtImeProdukt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,5 +1,8 @@
 package com.example.pmpdomasno2;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -7,7 +10,13 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Html;
 import android.util.DisplayMetrics;
@@ -33,19 +42,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 
 public class OsnovenFragment extends Fragment {
 
     ListView lvProdukti;
-    ArrayList<Produkt> zacuvani;
-    static ArrayList<Produkt> momentalnoSelektirani;
-   public static ListAdapter adapter;
-    String p="";
+
+    public static ListAdapter adapter;
+
     public static ArrayList<Produkt> listaProdukti;
 
+    private static ProduktCounterViewModel pcViewModel;
+
+    public static final int KREIRAJ_PRODUKT_REQ=0;
+    List <Produkt> pp;
     public OsnovenFragment() {
-        // Required empty public constructor
+
     }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,60 +74,40 @@ public class OsnovenFragment extends Fragment {
         int t=Tema.odrediTema(getContext());
         final FloatingActionButton fabKreirajNov=(FloatingActionButton) v.findViewById(R.id.fabKreirajNov);
         Tema.setTemaSliki(getContext(),t,fabKreirajNov);
-        lvProdukti=((MainActivity)getActivity()).lvProdukti;
-        adapter=((MainActivity)getActivity()).adapter;
-        listaProdukti=((MainActivity)getActivity()).listaProdukti;
+
+        pcViewModel= ViewModelProviders.of(getActivity()).get(ProduktCounterViewModel.class);
+        pcViewModel.getSiteProdukti().observe(getActivity(), new Observer<List<Produkt>>() {
+            @Override
+            public void onChanged(List<Produkt> produkts) {
+                adapter.setProdukti(produkts);
+            }
+        });
+
+
         lvProdukti = (ListView) v.findViewById(R.id.lvProdukti);
 
-
-
-
-        Produkt.setProdukti(getContext());
-        listaProdukti=Produkt.getProdukti();
-        try {
-            updateListProdukti();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        adapter = new ListAdapter((MainActivity)getActivity(), listaProdukti);
+        adapter = new ListAdapter((MainActivity)getActivity());
         lvProdukti.setAdapter(adapter);
-        if(savedInstanceState!=null)
-        {
-            momentalnoSelektirani = savedInstanceState.getParcelableArrayList("kluc");
-            ListView lv=v.findViewById(R.id.lvProdukti);
-            for(int i=0;i<momentalnoSelektirani.size();i++)
-            {
-                listaProdukti.get(i).setCounter(momentalnoSelektirani.get(i).getCounter());
-                adapter.notifyDataSetChanged();
-            }
-        }
-        else
-        {
-            momentalnoSelektirani=new ArrayList<Produkt>();
-           setMomentalnoSelektirani();
-        }
-
-
 
 
         lvProdukti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                int i= listaProdukti.get(position).getCounter();
-                i++;
-                listaProdukti.get(position).setCounter(i);
-                adapter.notifyDataSetChanged();
-                Boolean ima=false;
-
-                momentalnoSelektirani.get(position).setCounter(i);
-
-
-
+                TextView tvId=view.findViewById(R.id.txtProduktID);
+                int intId=Integer.parseInt(tvId.getText().toString());
+                pcViewModel.updateCounterTempIncrement(intId);
             }
         });
+
+       lvProdukti.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+           @Override
+           public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+               Produkt p=adapter.getProduktAt(position);
+               potvrdiBrisenjeProdukt(p);
+               return true;
+           }
+       });
 
 
         final ImageButton btnDodajProdukt=(ImageButton) v.findViewById(R.id.btnDodajProdukt);
@@ -125,8 +118,9 @@ public class OsnovenFragment extends Fragment {
             {
                 try {
                     dodajProdukt();
-                  undoProdukti();
-                } catch (FileNotFoundException e) {
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -141,9 +135,12 @@ public class OsnovenFragment extends Fragment {
             {
                 try {
                     prikaziIstorijaProdukti();
-                } catch (FileNotFoundException e) {
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                ;
             }
         });
 
@@ -157,20 +154,14 @@ public class OsnovenFragment extends Fragment {
             }
         });
 
-
-
-
         fabKreirajNov.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-
                 if(getResources().getConfiguration().orientation==Configuration.ORIENTATION_PORTRAIT) {
                     Intent intent = new Intent(getActivity(), KreirajNovProizvodActivity.class);
-
-                    intent.putParcelableArrayListExtra("listaProduktiIntent", listaProdukti);
-                    startActivityForResult(intent, 0);
+                    startActivity(intent);
                 }
                 else
                 {
@@ -187,143 +178,74 @@ public class OsnovenFragment extends Fragment {
 
 
 
-
         return v;
     }
 
-    @Override
-    public void onSaveInstanceState (Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("kluc",momentalnoSelektirani);
-
-    }
-
-    public static ArrayList<Produkt> getListProdukt()
-    {
-        return listaProdukti;
-    }
 
 
-    public void onActivityResult(int requestCode,int resultCode, Intent intent) {
 
-       super.onActivityResult(requestCode, resultCode, intent);
-        if(requestCode==0)
-        {
 
-            ArrayList<String> novoDodadeni=intent.getStringArrayListExtra("novoDodadeni");
 
-            for(int i=0;i<novoDodadeni.size();i++)
-            {
-                listaProdukti.add(new Produkt(novoDodadeni.get(i),novoDodadeni.get(i),0, R.drawable.placeholder));
-            }
-            adapter.notifyDataSetChanged();
-        }
 
-    }
 
-    public void updateListProdukti() throws FileNotFoundException {
-       File file = getActivity().getFileStreamPath("novoDodadeniProdukti");
-        if (file.exists()) {
-            Scanner scan = new Scanner(getActivity().openFileInput("novoDodadeniProdukti"));
-            while (scan.hasNext()) {
-                String produkt = scan.nextLine();
-                listaProdukti.add(new Produkt(produkt,produkt, 0, R.drawable.placeholder));
-            }
 
-        }
-    }
-
-    public void setMomentalnoSelektirani()
-    {
-        Produkt p;
-        for(int i=0;i<listaProdukti.size();i++) {
-            p = listaProdukti.get(i);
-            String s=p.getIme();
-            int c=p.getCounter();
-            momentalnoSelektirani.add(new Produkt(s,c));
-        }
-    }
-
-    public void dodajProdukt() throws FileNotFoundException {
-        Resources res=getResources();
-        PrintStream ps=new PrintStream(getActivity().openFileOutput("vkupnoProdukti",getActivity().MODE_APPEND));
-        String poraka="";
-        int counterCounter=0;
-        for(int i=0;i<listaProdukti.size();i++)
-        {
-            int countKliknato=listaProdukti.get(i).getCounter();
-            for(int j=0;j<countKliknato;j++)
-            {
-                ps.println(listaProdukti.get(i).getKod());
-
-            }
-            if(countKliknato!=0) {
-                poraka = poraka + "\n" + listaProdukti.get(i).getIme()+" " + res.getString(R.string.kolicna) +" "+ countKliknato;
-                listaProdukti.get(i).setCounter(0);
-                counterCounter=counterCounter+countKliknato;
-            }
-            resetListViewProdukti();
-            adapter.notifyDataSetChanged();
-        }
-        ps.close();
-
-        String celaPoraka;
-        if (counterCounter==0)
-            celaPoraka=res.getString(R.string.nemaDodadeniProdukti);
-        else
-            celaPoraka=res.getQuantityString(R.plurals.uspeshnoDodadeniProdukti,counterCounter)+poraka;
-        Toast.makeText((MainActivity)getActivity(),celaPoraka,Toast.LENGTH_LONG).show();
-
-    }
-
-    public void prikaziIstorijaProdukti() throws FileNotFoundException {
+    public void dodajProdukt() throws ExecutionException, InterruptedException {
         Resources res=getContext().getResources();
-        Scanner scan=new Scanner(getActivity().openFileInput("vkupnoProdukti"));
-        ArrayList<String> produktiOdDatoteka=new ArrayList<String>();
-        String poraka=res.getString(R.string.istorijaProdukti);
-        while(scan.hasNext())
+        int sum=pcViewModel.getSumCounterTemp();
+        if(sum!=0)
         {
-            String produkt=scan.nextLine();
-            produktiOdDatoteka.add(produkt);
+            pcViewModel.updateCounter();
+            pcViewModel.resetCounterTemp();
+            Toast.makeText(getActivity(), res.getQuantityString(R.plurals.uspeshnoDodadeniProdukti,sum,sum), Toast.LENGTH_SHORT).show();
         }
-        for(int i=0;i<listaProdukti.size();i++)
+        else
         {
-            int k=0;
-            for(int j=0;j<produktiOdDatoteka.size();j++)
-            {
-                if(listaProdukti.get(i).getKod().equalsIgnoreCase(produktiOdDatoteka.get(j)))
-                    k++;
-            }
-            poraka=poraka+"\n"+listaProdukti.get(i).getIme()+" "+res.getString(R.string.kolicna)+" "+k+" "+p;
-
-        }
-        Toast.makeText((MainActivity)getActivity(),poraka,Toast.LENGTH_LONG).show();
-    }
-
-    public void resetListViewProdukti()
-    {
-        for(int i=lvProdukti.getFirstVisiblePosition();i<=lvProdukti.getLastVisiblePosition();i++)
-        {
-            View v=lvProdukti.getChildAt(i-lvProdukti.getFirstVisiblePosition());
-            //v.setBackgroundColor(getResources().getColor(R.color.white));
-           // TextView t=(TextView)v.findViewById(R.id.txtCounter);
-           // t.setTextColor(getResources().getColor(R.color.white));
+            Toast.makeText(getActivity(),res.getString(R.string.nemaDodadeniProdukti),Toast.LENGTH_LONG).show();
         }
     }
+
+    public void prikaziIstorijaProdukti() throws ExecutionException, InterruptedException {
+        Resources res=getContext().getResources();
+        List<Produkt> istorijaProdukti=pcViewModel.getListprodukti();
+        String istorija=res.getString(R.string.istorijaProdukti)+"\n";
+        for(int i=0;i<istorijaProdukti.size();i++)
+        {
+            istorija=istorija+istorijaProdukti.get(i).getIme()+" - "+istorijaProdukti.get(i).getCounter()+" \n";
+        }
+        Toast.makeText(getActivity(),istorija,Toast.LENGTH_LONG).show();
+    }
+
 
     public void undoProdukti()
     {
+      pcViewModel.resetCounterTemp();
+    }
 
+    public void potvrdiBrisenjeProdukt(final Produkt p)
+    {
+        Resources res=getContext().getResources();
+        AlertDialog dialog=new AlertDialog.Builder(getContext())
+                .setTitle(res.getString(R.string.potvrdaBrisenjeProduktNaslov))
+                .setMessage(res.getString(R.string.potvrdaBrisenjeProduktOpis,p.getIme()))
+                .setPositiveButton(res.getString(R.string.da), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        pcViewModel.delete(p);
+                    }
+                })
+                .setNegativeButton(res.getString(R.string.ne), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-        for(int i=0;i<listaProdukti.size();i++)
-        {
-            listaProdukti.get(i).setCounter(0);
-            momentalnoSelektirani.get(i).setCounter(0);
-        }
-        resetListViewProdukti();
-        adapter.notifyDataSetChanged();
+                    }
+                }).create();
+        dialog.show();
 
     }
 
+    public static ProduktCounterViewModel getPcViewModel()
+    {
+        return pcViewModel;
+    }
 }
 
